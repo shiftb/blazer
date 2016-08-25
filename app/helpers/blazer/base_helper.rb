@@ -23,6 +23,9 @@ module Blazer
         else
           link_to value, value, target: "_blank"
         end
+      # if column ends with JSON, let's pretty print it
+      elsif key.to_s.end_with("json") && (parsed_json = JSON.parse(value) rescue nil)
+        content_tag(:pre, JSON.pretty_generate(parsed_json))
       else
         value
       end
